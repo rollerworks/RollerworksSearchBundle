@@ -11,7 +11,6 @@
 
 namespace Rollerworks\Bundle\SearchBundle;
 
-use Rollerworks\Bundle\SearchBundle\DependencyInjection\Compiler\TranslatorPass;
 use Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -23,7 +22,6 @@ class RollerworksSearchBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new TranslatorPass());
         $container->addCompilerPass(new Compiler\ExtensionPass());
         $container->addCompilerPass(new Compiler\InputProcessorPass());
         $container->addCompilerPass(new Compiler\ExporterPass());
