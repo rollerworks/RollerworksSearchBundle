@@ -40,7 +40,7 @@ class RollerworksSearchExtension extends Extension
         $serviceLoader->loadFile('type');
         $serviceLoader->loadFile('input_processor');
         $serviceLoader->loadFile('exporter');
-        $serviceLoader->loadFile('formatter');
+        $serviceLoader->loadFile('condition_optimizers');
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
