@@ -1,0 +1,24 @@
+---------------------------------------------------------------------------
+
+by cordoval at 2015-07-02 14:23
+
+:+1:  let travis run
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-07-02 14:27
+
+https://travis-ci.org/rollerworks/RollerworksSearchBundle/jobs/69296445#L371-L372
+```
+1) Rollerworks\Bundle\SearchBundle\Tests\Unit\DependencyInjection\RollerworksSearchBundleExtensionTest::testFieldsSetsGetRegisteredFromMetadata
+
+Trying to get property of non-object
+```
+
+Thats not good :|
+
+---------------------------------------------------------------------------
+
+by cordoval at 2015-07-02 14:34
+
+not good :soccer: indeed
