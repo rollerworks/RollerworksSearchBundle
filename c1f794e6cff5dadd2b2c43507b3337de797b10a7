@@ -1,0 +1,40 @@
+---------------------------------------------------------------------------
+
+by sstok at 2015-01-24 15:40
+
+~~The SearchFilterStorage (better name needed) keeps track of which search-code is used for which preference slot. Basically `slot-name => search-code`, and then storing this somewhere (eg. a session/cookie etc.) The filter-code is an exported search-condition.~~
+
+~~The idea behind this that you have multiple searches on a single page, and restore them when needed. *When you return to a page and there is a search-code for the slot-name it will get the search-code and (optionally) redirect with the search-code applied or just applied directly.*~~
+
+~~A slot-name is explicitly not a FieldSet name as you can have multiple grids with the same data source.~~
+
+~~We are not using a serialized search-condition here because the search-code is user input, and any changes in the configuration should reprocess the original input.~~
+
+This will be done in another PR to keep things clean and simple.
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-04 09:01
+
+I have a better idea for the Form, which fortunately is possible as bridge :+1:
+
+The Fields already support Views so its possible to use this for rendering form fields that will be used client-side. *Processing a big collection of Forms is a big risk for performance and may cause wrong results for transformers.* So having our own Form Templates and rendering will make this much easier :dancer:
+
+---------------------------------------------------------------------------
+
+by cordoval at 2015-06-30 17:21
+
+what is introce?
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-07-03 12:41
+
+The SearchCodeStorage will be done in another PR as this requires more work.
+Its only about storing a search preference, this current PR has a higher priority.
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-07-04 14:47
+
+~~When using the form its not possible to simply use `?filter` in the URI so make it possible to configure the form name as `my_form[some-sub][%s]` where %s replaced with the field-name we want (filter/format).~~ DONE
