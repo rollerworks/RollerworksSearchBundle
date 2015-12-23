@@ -1,0 +1,41 @@
+---------------------------------------------------------------------------
+
+by sstok at 2015-12-23 13:24
+
+```
+1) Rollerworks\Bundle\SearchBundle\Tests\Unit\DependencyInjection\ExtensionConfigurationTest::testSupportsAllConfigFormats
+
+Failed asserting that two arrays are equal.
+
+--- Expected
+
++++ Actual
+
+@@ @@
+
+                 0 => Array (
+
+-                    'class' => 'Model\User'
+
++                    'class' => Binary String: 0x4d6f64656c00736572
+
+                     'include_fields' => Array (...)
+
+                     'exclude_fields' => Array ()
+
+                 )
+
+             )
+
+             'fields' => Array (...)
+
+         )
+
+         'field2' => Array (...)
+
+     )
+
+ )
+```
+
+WAT THE HELL IS THIS CR*P!!
