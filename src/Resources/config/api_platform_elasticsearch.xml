@@ -5,9 +5,12 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="rollerworks_search.elasticsearch.client" synthetic="true" />
+
         <service id="rollerworks_search.api_platform.elasticsearch.query_extension.search" class="Rollerworks\Component\Search\ApiPlatform\Elasticsearch\Extension\SearchExtension" public="false">
             <argument type="service" id="request_stack" />
             <argument type="service" id="rollerworks_search.elasticsearch.factory" />
+            <argument type="service" id="rollerworks_search.elasticsearch.client" />
 
             <tag name="api_platform.doctrine.orm.query_extension.collection" priority="32" />
         </service>
