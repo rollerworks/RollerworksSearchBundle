@@ -55,6 +55,10 @@ class RollerworksSearchExtension extends Extension implements PrependExtensionIn
             }
         }
 
+        if ($this->isConfigEnabled($container, $config['elasticsearch'])) {
+            $loader->load('elasticsearch.xml');
+        }
+
         if (interface_exists(ValidatorInterface::class)) {
             $loader->load('input_validator.xml');
         }
@@ -68,6 +72,9 @@ class RollerworksSearchExtension extends Extension implements PrependExtensionIn
 
             if ($this->isConfigEnabled($container, $config['api_platform']['doctrine_orm'])) {
                 $loader->load('api_platform_doctrine_orm.xml');
+            }
+            if ($this->isConfigEnabled($container, $config['api_platform']['elasticsearch'])) {
+                $loader->load('api_platform_elasticsearch.xml');
             }
         }
     }
