@@ -13,10 +13,9 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Rollerworks\Component\Search\ApiPlatform\EventListener\InvalidSearchConditionExceptionListener;
 use Rollerworks\Component\Search\ApiPlatform\EventListener\SearchConditionListener;
 use Rollerworks\Component\Search\ApiPlatform\Metadata\DefaultConfigurationMetadataFactory;
-use Rollerworks\Component\Search\ApiPlatform\Serializer\InvalidSearchConditionNormalizer;
+use Rollerworks\Component\Search\ApiPlatform\Serializer\ConditionErrorMessageNormalizer;
 use Symfony\Component\Cache\Psr16Cache;
 
 return static function (ContainerConfigurator $container): void {
@@ -39,20 +38,8 @@ return static function (ContainerConfigurator $container): void {
         ->tag('kernel.event_listener', ['event' => 'kernel.request', 'method' => 'onKernelRequest', 'priority' => 5]);
 
     // InvalidSearchConditionException handling
-
-    $services->set('rollerworks_search.api_platform.hydra.normalizer.invalid_search_condition', InvalidSearchConditionNormalizer::class)
-        ->args([
-            '%api_platform.validator.serialize_payload_fields%',
-            service('api_platform.name_converter')->ignoreOnInvalid(),
-        ])
+    $services->set('rollerworks_search.api_platform.hydra.normalizer.invalid_search_condition', ConditionErrorMessageNormalizer::class)
         ->tag('serializer.normalizer', ['priority' => 64]);
-
-    $services->set('rollerworks_search.api_platform.listener.invalid_search_condition', InvalidSearchConditionExceptionListener::class)
-        ->args([
-            service('api_platform.serializer'),
-            '%api_platform.error_formats%',
-        ])
-        ->tag('kernel.event_listener', ['event' => 'kernel.exception', 'method' => 'onKernelException']);
 
     // MetadataFactory, execute after everything else but before caching.
     $services->set('rollerworks_search.api_platform.metadata.resource.default_context_factory', DefaultConfigurationMetadataFactory::class)

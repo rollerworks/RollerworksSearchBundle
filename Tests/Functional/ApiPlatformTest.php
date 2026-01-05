@@ -28,20 +28,16 @@ final class ApiPlatformTest extends FunctionalTestCase
             self::markTestSkipped('rollerworks/search-api-platform is not installed.');
         }
 
-        try {
-            $client = self::newClient(['config' => 'api_platform.yml']);
-            $client->getKernel()->boot();
+        $client = self::newClient(['config' => 'api_platform.yml']);
+        $client->getKernel()->boot();
 
-            $em = $client->getContainer()->get('doctrine')->getManager('default');
-            $metadatas = $em->getMetadataFactory()->getAllMetadata();
+        $em = $client->getContainer()->get('doctrine')->getManager('default');
+        $metadatas = $em->getMetadataFactory()->getAllMetadata();
 
-            $schemaTool = new SchemaTool($em);
-            $schemaTool->updateSchema($metadatas, true);
+        $schemaTool = new SchemaTool($em);
+        $schemaTool->updateSchema($metadatas, true);
 
-            self::ensureKernelShutdown();
-        } catch (\Exception $e) {
-            throw new \PHPUnit\Framework\Error\Error($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine(), $e);
-        }
+        self::ensureKernelShutdown();
     }
 
     /** @test */
@@ -98,8 +94,23 @@ final class ApiPlatformTest extends FunctionalTestCase
         self::assertEquals('/books.json?search=id%3A+He%3B', $client->getRequest()->getRequestUri());
         self::assertNull($client->getRequest()->attributes->get('_api_search_condition'));
         self::assertJsonStringEqualsJsonString(
-            '{"type":"https://tools.ietf.org/html/rfc2616#section-10","title":"An error occurred","detail":"[id][0]: This value is not valid.","violations":[{"propertyPath":"[id][0]","message":"This value is not valid."}]}',
-            $client->getResponse()->getContent()
+            '{
+                "@context": "/contexts/SearchViolation",
+                "@id": "/search_violations",
+                "@type": "SearchViolation",
+                "description": "[id][0]: This value is not valid.",
+                "detail": "[id][0]: This value is not valid.",
+                "status": 422,
+                "title": "The search condition is invalid",
+                "type": "https://tools.ietf.org/html/rfc2616#section-10",
+                "violations": [
+                    {
+                        "message": "This value is not valid.",
+                        "propertyPath": "[id][0]"
+                    }
+                ]
+            }',
+            $client->getResponse()->getContent(),
         );
     }
 
@@ -117,7 +128,22 @@ final class ApiPlatformTest extends FunctionalTestCase
         self::assertEquals('/books.jsonld?search=id%3A+He%3B', $client->getRequest()->getRequestUri());
         self::assertNull($client->getRequest()->attributes->get('_api_search_condition'));
         self::assertJsonStringEqualsJsonString(
-            '{"@context":"\/contexts\/Error","@type":"hydra:Error","hydra:title":"An error occurred","hydra:description":"The search-condition contains one or more errors."}',
+            '{
+                "@context": "/contexts/SearchViolation",
+                "@id": "/search_violations",
+                "@type": "SearchViolation",
+                "description": "[id][0]: This value is not valid.",
+                "detail": "[id][0]: This value is not valid.",
+                "status": 422,
+                "title": "The search condition is invalid",
+                "type": "https://tools.ietf.org/html/rfc2616#section-10",
+                "violations": [
+                    {
+                        "message": "This value is not valid.",
+                        "propertyPath": "[id][0]"
+                    }
+                ]
+            }',
             $client->getResponse()->getContent()
         );
     }

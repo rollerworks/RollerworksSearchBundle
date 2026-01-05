@@ -31,9 +31,6 @@ doctrine:
         path: "%kernel.cache_dir%/search.sqlite"
 
     orm:
-        auto_generate_proxy_classes: '%kernel.debug%'
-        proxy_dir: '%kernel.cache_dir%/doctrine/orm/Proxies'
-
         entity_managers:
             default:
                 query_cache_driver:

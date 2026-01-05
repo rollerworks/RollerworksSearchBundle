@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Rollerworks\Bundle\SearchBundle\DependencyInjection;
 
+use ApiPlatform\Symfony\Bundle\DependencyInjection\ApiPlatformExtension;
+use Rollerworks\Component\Search\ApiPlatform\Exception\InvalidConditionException;
 use Rollerworks\Component\Search\Extension\Symfony\Validator\InputValidator;
 use Rollerworks\Component\Search\Field\FieldType;
 use Rollerworks\Component\Search\Field\FieldTypeExtension;
@@ -114,6 +116,16 @@ class RollerworksSearchExtension extends Extension implements PrependExtensionIn
                         \dirname((new \ReflectionClass(FieldSet::class))->getFileName()) . '/Resources/translations',
                     ],
                 ],
+            ]);
+        }
+
+        if (class_exists(ApiPlatformExtension::class)) {
+            $container->prependExtensionConfig('api_platform', [
+                'mapping' => [
+                    'paths' => [
+                        \dirname((new \ReflectionClass(InvalidConditionException::class))->getFileName()),
+                    ]
+                ]
             ]);
         }
     }

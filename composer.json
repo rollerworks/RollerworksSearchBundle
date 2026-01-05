@@ -37,7 +37,7 @@
     },
     "conflict": {
         "doctrine/doctrine-bundle": "<1.1",
-        "rollerworks/search-api-platform": "<2.0.0-BETA4",
+        "rollerworks/search-api-platform": "<2.0.0-BETA10",
         "rollerworks/search-doctrine-dbal": "<2.0.0-BETA3",
         "rollerworks/search-doctrine-orm": "<2.0.0-BETA3",
         "rollerworks/search-symfony-validator": "<2.0.0-BETA3"
