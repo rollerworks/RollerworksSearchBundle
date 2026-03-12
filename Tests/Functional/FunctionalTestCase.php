@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Rollerworks\Bundle\SearchBundle\Tests\Functional;
 
+use Rollerworks\Bundle\SearchBundle\Tests\Functional\Application\AppKernel;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -21,7 +22,7 @@ abstract class FunctionalTestCase extends WebTestCase
 {
     protected static function createKernel(array $options = []): KernelInterface
     {
-        return new Application\AppKernel(
+        return new AppKernel(
             $options['config'] ?? 'default.yml',
             false
         );
@@ -29,7 +30,7 @@ abstract class FunctionalTestCase extends WebTestCase
 
     protected static function getKernelClass(): string
     {
-        return Application\AppKernel::class;
+        return AppKernel::class;
     }
 
     protected static function newClient(array $options = [], array $server = []): KernelBrowser
