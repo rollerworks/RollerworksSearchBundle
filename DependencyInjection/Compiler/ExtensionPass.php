@@ -34,15 +34,11 @@ final class ExtensionPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    private $fieldExtensionService;
-    private $fieldTypeTag;
-    private $fieldTypeExtensionTag;
-
-    public function __construct(string $fieldExtensionService = 'rollerworks_search.extension', string $fieldTypeTag = 'rollerworks_search.type', string $fieldTypeExtensionTag = 'rollerworks_search.type_extension')
-    {
-        $this->fieldExtensionService = $fieldExtensionService;
-        $this->fieldTypeTag = $fieldTypeTag;
-        $this->fieldTypeExtensionTag = $fieldTypeExtensionTag;
+    public function __construct(
+        private string $fieldExtensionService = 'rollerworks_search.extension',
+        private string $fieldTypeTag = 'rollerworks_search.type',
+        private string $fieldTypeExtensionTag = 'rollerworks_search.type_extension',
+    ) {
     }
 
     public function process(ContainerBuilder $container): void
@@ -92,7 +88,7 @@ final class ExtensionPass implements CompilerPassInterface
 
         foreach ($typeExtensions as $extendedType => $extensions) {
             $allExtensions[$extendedType] = new IteratorArgument(array_map(
-                static fn ($extensionId) => new Reference($extensionId),
+                static fn ($extensionId): Reference => new Reference($extensionId),
                 $extensions
             ));
         }

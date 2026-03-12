@@ -42,7 +42,7 @@ final class Configuration implements ConfigurationInterface
                  ->arrayNode('doctrine')
                      ->validate()
                          ->ifTrue(
-                             static fn (array $nodes) => $nodes['orm']['enabled'] && ! $nodes['dbal']['enabled']
+                             static fn (array $nodes): bool => $nodes['orm']['enabled'] && ! $nodes['dbal']['enabled']
                          )
                          ->thenInvalid('rollerworks_search.dbal must be enabled when rollerworks_search.orm is enabled')
                      ->end()

@@ -26,15 +26,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SearchController
 {
-    private $searchFactory;
-    private $inputProcessorLoader;
-    private $urlGenerator;
-
-    public function __construct(SearchFactory $searchFactory, InputProcessorLoader $inputProcessorLoader, UrlGeneratorInterface $urlGenerator)
-    {
-        $this->searchFactory = $searchFactory;
-        $this->inputProcessorLoader = $inputProcessorLoader;
-        $this->urlGenerator = $urlGenerator;
+    public function __construct(
+        private readonly SearchFactory $searchFactory,
+        private readonly InputProcessorLoader $inputProcessorLoader,
+        private readonly UrlGeneratorInterface $urlGenerator,
+    ) {
     }
 
     public function __invoke(Request $request)
@@ -59,7 +55,7 @@ final class SearchController
                 'INVALID: <ul>' . implode(
                     "\n",
                     array_map(
-                        static fn (ConditionErrorMessage $e) => '<li>' . $e->message . '</li>',
+                        static fn (ConditionErrorMessage $e): string => '<li>' . $e->message . '</li>',
                         $e->getErrors()
                     )
                 ) . '</ul>', 500
