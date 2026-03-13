@@ -21,7 +21,9 @@ use Rollerworks\Component\Search\Doctrine\Orm\DoctrineOrmFactory;
  */
 final class DoctrineTest extends FunctionalTestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function doctrine_dbal_factory_is_accessible(): void
     {
         if (! class_exists(DoctrineDbalFactory::class)) {
@@ -36,7 +38,9 @@ final class DoctrineTest extends FunctionalTestCase
         self::assertInstanceOf(DoctrineDbalFactory::class, $container->get('rollerworks_search.doctrine_dbal.factory'));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function doctrine_orm_factory_is_accessible(): void
     {
         if (! class_exists(DoctrineOrmFactory::class)) {

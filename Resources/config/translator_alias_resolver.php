@@ -23,11 +23,14 @@ return static function (ContainerConfigurator $container): void {
     $services = $container->services();
 
     $services->set('rollerworks_search.translator_based_alias_resolver', TranslatorBasedAliasResolver::class)
-        ->args([service('translator')]);
+        ->args([service('translator')])
+    ;
 
     $services->set(TranslatableFieldTypeExtension::class)
-        ->tag('rollerworks_search.type_extension', ['extended_type' => SearchFieldType::class]);
+        ->tag('rollerworks_search.type_extension', ['extended_type' => SearchFieldType::class])
+    ;
 
     $services->set(TranslatableOrderFieldTypeExtension::class)
-        ->tag('rollerworks_search.type_extension', ['extended_type' => OrderFieldType::class]);
+        ->tag('rollerworks_search.type_extension', ['extended_type' => OrderFieldType::class])
+    ;
 };

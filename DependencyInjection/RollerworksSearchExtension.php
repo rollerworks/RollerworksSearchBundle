@@ -84,7 +84,7 @@ class RollerworksSearchExtension extends Extension implements PrependExtensionIn
 
             if ($this->isConfigEnabled($container, $config['api_platform']['elasticsearch'])) {
                 if (! $this->isConfigEnabled($container, $config['elasticsearch'])) {
-                    throw new LogicException('API Platform Elasticsearch support cannot be enabled as Elasticsearch is not enabled');
+                    throw new LogicException('API Platform Elasticsearch support cannot be enabled as Elasticsearch is not enabled.');
                 }
                 $loader->load('api_platform_elasticsearch.php');
             }
@@ -124,8 +124,8 @@ class RollerworksSearchExtension extends Extension implements PrependExtensionIn
                 'mapping' => [
                     'paths' => [
                         \dirname((new \ReflectionClass(InvalidConditionException::class))->getFileName()),
-                    ]
-                ]
+                    ],
+                ],
             ]);
         }
     }

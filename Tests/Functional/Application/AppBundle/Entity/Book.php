@@ -41,7 +41,8 @@ use Symfony\Component\Validator\Constraints as Assert;
                     ],
                 ],
             ],
-        ]),
+        ]
+    ),
 ])]
 #[ORM\Entity] class Book
 {
@@ -51,25 +52,19 @@ use Symfony\Component\Validator\Constraints as Assert;
     #[ApiProperty(identifier: true)]
     private int $id;
 
-    /**
-     * @var string The ISBN of the book
-     */
+    /** @var string The ISBN of the book */
     #[Assert\Type(type: 'string')]
     #[Assert\Isbn]
     #[ORM\Column(nullable: true)]
     private string $isbn;
 
-    /**
-     * @var string The title of the book
-     */
+    /** @var string The title of the book */
     #[Assert\Type(type: 'string')]
     #[Assert\NotBlank]
     #[ORM\Column]
     private string $title;
 
-    /**
-     * @var string A description of the item
-     */
+    /** @var string A description of the item */
     #[Assert\NotBlank]
     #[Assert\Type(type: 'string')]
     #[ORM\Column(type: 'text')]
@@ -84,9 +79,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     #[ORM\Column]
     private string $author;
 
-    /**
-     * @var \DateTimeImmutable The date on which the CreativeWork was created or the item was added to a DataFeed
-     */
+    /** @var \DateTimeImmutable The date on which the CreativeWork was created or the item was added to a DataFeed */
     #[Assert\Date]
     #[Assert\NotNull]
     #[ORM\Column(type: 'date')]

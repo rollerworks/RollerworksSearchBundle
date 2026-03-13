@@ -36,29 +36,35 @@ return static function (ContainerConfigurator $container): void {
         ->args([
             service('rollerworks_search.elasticsearch.cache')->nullOnInvalid(),
             service('rollerworks_search.parameter_bag')->nullOnInvalid(),
-        ]);
+        ])
+    ;
 
     $services->set('rollerworks_search.elasticsearch.client')
-        ->synthetic();
+        ->synthetic()
+    ;
 
     $services->set(CurrencyConversion::class);
     $services->set(DateConversion::class);
     $services->set(DateTimeConversion::class);
 
     $services->set(FieldTypeExtension::class)
-        ->tag('rollerworks_search.type_extension', ['extended_type' => SearchFieldType::class]);
+        ->tag('rollerworks_search.type_extension', ['extended_type' => SearchFieldType::class])
+    ;
 
     $services->set(BirthdayTypeExtension::class)
         ->args([service(DateConversion::class)])
-        ->tag('rollerworks_search.type_extension', ['extended_type' => BirthdayType::class]);
+        ->tag('rollerworks_search.type_extension', ['extended_type' => BirthdayType::class])
+    ;
 
     $services->set(DateTypeExtension::class)
         ->args([service(DateConversion::class)])
-        ->tag('rollerworks_search.type_extension', ['extended_type' => DateType::class]);
+        ->tag('rollerworks_search.type_extension', ['extended_type' => DateType::class])
+    ;
 
     $services->set(DateTimeTypeExtension::class)
         ->args([service(DateTimeConversion::class)])
-        ->tag('rollerworks_search.type_extension', ['extended_type' => DateTimeType::class]);
+        ->tag('rollerworks_search.type_extension', ['extended_type' => DateTimeType::class])
+    ;
 
     $services->set(MoneyTypeExtension::class)
         ->args([service(CurrencyConversion::class)])

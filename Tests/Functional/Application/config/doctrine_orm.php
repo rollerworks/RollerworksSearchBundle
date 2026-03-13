@@ -14,7 +14,6 @@ declare(strict_types=1);
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-
     // TODO Convert doctrine_orm.yml to PHP
 
     $containerConfigurator->extension('doctrine', [
@@ -22,5 +21,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'enable_native_lazy_objects' => \PHP_VERSION_ID >= 80400,
         ],
     ]);
-
 };

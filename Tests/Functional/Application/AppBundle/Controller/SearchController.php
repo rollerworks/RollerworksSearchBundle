@@ -58,7 +58,8 @@ final class SearchController
                         static fn (ConditionErrorMessage $e): string => '<li>' . $e->message . '</li>',
                         $e->getErrors()
                     )
-                ) . '</ul>', 500
+                ) . '</ul>',
+                500
             );
         }
     }

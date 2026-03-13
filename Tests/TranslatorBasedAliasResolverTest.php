@@ -31,48 +31,54 @@ final class TranslatorBasedAliasResolverTest extends SearchIntegrationTestCase
 {
     use ProphecyTrait;
 
-    /** @test */
+    /**
+     * @test
+     */
     public function it_uses_field_name_when_label_is_empty(): void
     {
         $translator = $this->createMock(TranslatorInterface::class);
-        $translator->expects($this->never())->method('trans');
+        $translator->expects(self::never())->method('trans');
 
         $resolver = new TranslatorBasedAliasResolver($translator);
         $searchFactory = $this->getFactory();
 
-        $this->assertEquals('id', $resolver($searchFactory->createField('id', TextType::class)));
-        $this->assertEquals('name', $resolver($searchFactory->createField('name', TextType::class)));
-        $this->assertEquals('@id', $resolver($searchFactory->createField('@id', OrderFieldType::class)));
+        self::assertEquals('id', $resolver($searchFactory->createField('id', TextType::class)));
+        self::assertEquals('name', $resolver($searchFactory->createField('name', TextType::class)));
+        self::assertEquals('@id', $resolver($searchFactory->createField('@id', OrderFieldType::class)));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function it_keeps_label_as_is_when_not_translatable(): void
     {
         $translator = $this->createMock(TranslatorInterface::class);
-        $translator->expects($this->never())->method('trans');
+        $translator->expects(self::never())->method('trans');
 
         $resolver = new TranslatorBasedAliasResolver($translator);
         $searchFactory = $this->getFactory();
 
-        $this->assertEquals('id2', $resolver($searchFactory->createField('id', TextType::class, ['label' => 'id2'])));
-        $this->assertEquals('name2', $resolver($searchFactory->createField('name', TextType::class, ['label' => 'name2'])));
-        $this->assertEquals('@id2', $resolver($searchFactory->createField('@id', OrderFieldType::class, ['label' => '@id2'])));
-        $this->assertEquals('@id2', $resolver($searchFactory->createField('@id', OrderFieldType::class, ['label' => 'id2'])));
+        self::assertEquals('id2', $resolver($searchFactory->createField('id', TextType::class, ['label' => 'id2'])));
+        self::assertEquals('name2', $resolver($searchFactory->createField('name', TextType::class, ['label' => 'name2'])));
+        self::assertEquals('@id2', $resolver($searchFactory->createField('@id', OrderFieldType::class, ['label' => '@id2'])));
+        self::assertEquals('@id2', $resolver($searchFactory->createField('@id', OrderFieldType::class, ['label' => 'id2'])));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function it_translates_label_when_translatable(): void
     {
         $translator = $this->prophesize(TranslatorInterface::class);
-        $translator->trans(Argument::cetera())->will(static fn(array $args): string => $args[0][0] === '@' ? $args[0] . 'T' : 'T' . $args[0]);
+        $translator->trans(Argument::cetera())->will(static fn (array $args): string => $args[0][0] === '@' ? $args[0] . 'T' : 'T' . $args[0]);
 
         $resolver = new TranslatorBasedAliasResolver($translator->reveal());
         $searchFactory = $this->getFactory();
 
-        $this->assertEquals('Tid2', $resolver($searchFactory->createField('id', TextType::class, ['label' => new TranslatableMessage('id2')])));
-        $this->assertEquals('Tname2', $resolver($searchFactory->createField('name', TextType::class, ['label' => new TranslatableMessage('name2')])));
-        $this->assertEquals('@id2T', $resolver($searchFactory->createField('@id', OrderFieldType::class, ['label' => new TranslatableMessage('@id2')])));
-        $this->assertEquals('@Tid2', $resolver($searchFactory->createField('@id', OrderFieldType::class, ['label' => new TranslatableMessage('id2')])));
+        self::assertEquals('Tid2', $resolver($searchFactory->createField('id', TextType::class, ['label' => new TranslatableMessage('id2')])));
+        self::assertEquals('Tname2', $resolver($searchFactory->createField('name', TextType::class, ['label' => new TranslatableMessage('name2')])));
+        self::assertEquals('@id2T', $resolver($searchFactory->createField('@id', OrderFieldType::class, ['label' => new TranslatableMessage('@id2')])));
+        self::assertEquals('@Tid2', $resolver($searchFactory->createField('@id', OrderFieldType::class, ['label' => new TranslatableMessage('id2')])));
     }
 
     protected function getTypeExtensions(): array

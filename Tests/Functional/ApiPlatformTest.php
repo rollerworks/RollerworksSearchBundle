@@ -40,7 +40,9 @@ final class ApiPlatformTest extends FunctionalTestCase
         self::ensureKernelShutdown();
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function empty_search_code_is_valid(): void
     {
         $client = self::newClient(['config' => 'api_platform.yml']);
@@ -50,7 +52,9 @@ final class ApiPlatformTest extends FunctionalTestCase
         self::assertEquals('[]', $client->getResponse()->getContent());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function with_valid_condition(): void
     {
         $client = self::newClient(['config' => 'api_platform.yml']);
@@ -65,7 +69,9 @@ final class ApiPlatformTest extends FunctionalTestCase
         self::assertEquals('[]', $client->getResponse()->getContent());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function with_valid_condition_json(): void
     {
         $client = self::newClient(['config' => 'api_platform.yml']);
@@ -80,7 +86,9 @@ final class ApiPlatformTest extends FunctionalTestCase
         self::assertEquals('[]', $client->getResponse()->getContent());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function invalid_condition_has_errors_in_json_format(): void
     {
         $client = self::newClient(['config' => 'api_platform.yml']);
@@ -114,7 +122,9 @@ final class ApiPlatformTest extends FunctionalTestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function invalid_condition_has_errors_in_jsonld_format(): void
     {
         $client = self::newClient(['config' => 'api_platform.yml']);

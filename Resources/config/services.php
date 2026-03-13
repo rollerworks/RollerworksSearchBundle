@@ -32,10 +32,12 @@ return static function (ContainerConfigurator $container): void {
         ->args([
             null,
             [], // All services with tag "rollerworks_search.fieldset" are inserted here by FieldSetRegistryPass
-        ]);
+        ])
+    ;
 
     $services->set('rollerworks_search.condition_serializer', SearchConditionSerializer::class)
-        ->args([service('rollerworks_search.factory')]);
+        ->args([service('rollerworks_search.factory')])
+    ;
 
     $services->set('rollerworks_search.type_registry', GenericTypeRegistry::class)
         ->args([
@@ -44,14 +46,16 @@ return static function (ContainerConfigurator $container): void {
             //   * more type extensions can be registered with the rollerworks_search.type_extension tag
             [service('rollerworks_search.extension')],
             service('rollerworks_search.resolved_type_factory'),
-        ]);
+        ])
+    ;
 
     $services->set('rollerworks_search.factory', GenericSearchFactory::class)
         ->public()
         ->args([
             service('rollerworks_search.type_registry'),
             service('rollerworks_search.fieldset_registry'),
-        ]);
+        ])
+    ;
 
     $services->alias(SearchFactory::class, 'rollerworks_search.factory');
 
@@ -59,12 +63,14 @@ return static function (ContainerConfigurator $container): void {
         ->args([
             null, // All services with tag "rollerworks_search.type" are inserted here by ExtensionPass
             iterator([]), // All services with tag "rollerworks_search.type_extension" are inserted here by ExtensionPass
-        ]);
+        ])
+    ;
 
     $services->set('rollerworks_search.cache.adapter.array', ArrayAdapter::class)
         ->args([
-            0 // default lifetime
-        ]);
+            0, // default lifetime
+        ])
+    ;
 
     $services->set(ParameterBag::class);
     $services->alias('rollerworks_search.parameter_bag', ParameterBag::class);

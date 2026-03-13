@@ -20,7 +20,9 @@ use Rollerworks\Component\Search\Elasticsearch\ElasticsearchFactory;
  */
 final class ElasticsearchTest extends FunctionalTestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function elasticsearch_factory_is_accessible(): void
     {
         if (! class_exists(ElasticsearchFactory::class)) {

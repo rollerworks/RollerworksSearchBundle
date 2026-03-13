@@ -43,5 +43,6 @@ return static function (ContainerConfigurator $container): void {
     ;
 
     $services->set(MoneyTypeExtension::class)
-        ->tag('rollerworks_search.type_extension', ['extended_type' => MoneyType::class]);
+        ->tag('rollerworks_search.type_extension', ['extended_type' => MoneyType::class])
+    ;
 };

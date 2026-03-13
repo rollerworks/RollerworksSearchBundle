@@ -21,7 +21,9 @@ use Rollerworks\Component\Search\SearchFactory;
  */
 final class BootTest extends FunctionalTestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function it_can_boot_the_application(): void
     {
         $client = self::newClient();

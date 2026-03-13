@@ -31,9 +31,7 @@ class Review
     #[ORM\Id]
     private int $id;
 
-    /**
-     * @var string The actual body of the review
-     */
+    /** @var string The actual body of the review */
     #[ORM\Column(nullable: true, type: 'text')]
     #[Assert\Type(type: 'string')]
     private $body;
@@ -43,23 +41,17 @@ class Review
     #[Assert\Type(type: 'integer')]
     private int $rating;
 
-    /**
-     * @var Book The item that is being reviewed/rated
-     */
+    /** @var Book The item that is being reviewed/rated */
     #[ORM\ManyToOne(targetEntity: Book::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotNull]
     private Book $book;
 
-    /**
-     * @var string Author the author of the review
-     */
+    /** @var string Author the author of the review */
     #[ORM\Column(nullable: true, type: 'text')]
     private string $author;
 
-    /**
-     * @var \DateTimeImmutable Author the author of the review
-     */
+    /** @var \DateTimeImmutable Author the author of the review */
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private \DateTimeImmutable $publicationDate;
 

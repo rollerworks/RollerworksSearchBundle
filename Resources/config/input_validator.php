@@ -21,8 +21,10 @@ return static function (ContainerConfigurator $container): void {
     $services = $container->services();
 
     $services->set('rollerworks_search.validator', InputValidator::class)
-        ->args([service('validator')]);
+        ->args([service('validator')])
+    ;
 
     $services->set(FieldTypeValidatorExtension::class)
-        ->tag('rollerworks_search.type_extension', ['extended_type' => SearchFieldType::class]);
+        ->tag('rollerworks_search.type_extension', ['extended_type' => SearchFieldType::class])
+    ;
 };

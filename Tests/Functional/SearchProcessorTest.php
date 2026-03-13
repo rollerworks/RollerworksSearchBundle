@@ -18,7 +18,9 @@ namespace Rollerworks\Bundle\SearchBundle\Tests\Functional;
  */
 final class SearchProcessorTest extends FunctionalTestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function empty_search_code_is_valid(): void
     {
         $client = self::newClient(['config' => 'search_processor.yml']);
@@ -28,7 +30,9 @@ final class SearchProcessorTest extends FunctionalTestCase
         self::assertEquals('VALID: EMPTY', $client->getResponse()->getContent());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function post_condition(): void
     {
         $client = self::newClient(['config' => 'search_processor.yml']);
@@ -47,7 +51,9 @@ final class SearchProcessorTest extends FunctionalTestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function invalid_condition_has_errors(): void
     {
         $client = self::newClient(['config' => 'search_processor.yml']);

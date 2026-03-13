@@ -35,14 +35,17 @@ return static function (ContainerConfigurator $container): void {
         ])
 
         // kernel.request priority must be < 8 && > 4 to be executed after the Firewall but before ReadListener
-        ->tag('kernel.event_listener', ['event' => 'kernel.request', 'method' => 'onKernelRequest', 'priority' => 5]);
+        ->tag('kernel.event_listener', ['event' => 'kernel.request', 'method' => 'onKernelRequest', 'priority' => 5])
+    ;
 
     // InvalidSearchConditionException handling
     $services->set('rollerworks_search.api_platform.hydra.normalizer.invalid_search_condition', ConditionErrorMessageNormalizer::class)
-        ->tag('serializer.normalizer', ['priority' => 64]);
+        ->tag('serializer.normalizer', ['priority' => 64])
+    ;
 
     // MetadataFactory, execute after everything else but before caching.
     $services->set('rollerworks_search.api_platform.metadata.resource.default_context_factory', DefaultConfigurationMetadataFactory::class)
         ->decorate('api_platform.metadata.resource.metadata_collection_factory', null, -9)
-        ->args([service('rollerworks_search.api_platform.metadata.resource.default_context_factory.inner')]);
+        ->args([service('rollerworks_search.api_platform.metadata.resource.default_context_factory.inner')])
+    ;
 };
