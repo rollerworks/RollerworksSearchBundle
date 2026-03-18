@@ -78,7 +78,7 @@ final class ApiPlatformTest extends FunctionalTestCase
         $client->request(
             'GET',
             '/books.json',
-            ['search' => '{"fields":{"title":{"single-values":["Symfony;"]}}}']
+            ['search' => '{"fields":{"title":{"simple-values":["Symfony;"]}}}']
         );
 
         self::assertFalse($client->getResponse()->isRedirection());
